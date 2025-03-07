@@ -1,6 +1,6 @@
-# super-guide
+# Clan-Game-Database-Security-Project
 ## What is it?
-This repository contains our semester project code.
+This repository contains our semester project code, created by Caleb Griffy, Lingshan Jiang, and Isaac Hollis.
 
 ## Why is it useful?
 This project is useful because it dives into database security principles.
