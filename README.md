@@ -12,3 +12,14 @@ Anyone who is interested in database security and is interested can expand what 
 1. Create a new project in MySQL Workbench.
 2. Drag the Schema.sql file into the query menu.
 3. Select all the text and click the lightning bolt that executes the selected portion of the script.
+
+
+## How to Run the Django Project
+
+python manage.py runserver 8000
+python manage.py makemigrations
+Python manage.py migrate
+
+
+Starting development server at 
+http://127.0.0.1:8000/

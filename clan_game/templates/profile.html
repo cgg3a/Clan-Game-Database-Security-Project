@@ -54,9 +54,8 @@
 
   <body>
     <div class="container">
-      {% load static %}
-      <div><img src="{% static 'images/Clan_Games_Banner.jpg' %}" alt="Clan Games"></div>
       {% if request.session.user_data %}
+      <p> TODO: load my profile here</p>
       <div>
         <p>Hi {{ request.session.user_data.given_name }} 🙂</p>
         <p>Your email is {{ request.session.user_data.email }}</p>
@@ -64,26 +63,6 @@
         <p>Click here to <a href="/sign-out">Sign out</a></p>
       </div>
       {% else %}
-      <div>
-        <p>Hi there 🙂</p>
-        <p>Click below to sign in with Google</p>
-        <div id="g_id_onload"
-                data-client_id="1055647220152-9773j0rsjbhornn7m74bvf3do525aer4.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="redirect"
-                data-login_uri="http://localhost:8000/auth-receiver"
-                data-auto_prompt="false">
-        </div>
-        
-        <div class="g_id_signin"
-                data-type="standard"
-                data-shape="rectangular"
-                data-theme="outline"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left">
-        </div>
-      </div>
       {% endif %}
     </div>
   </body>
