@@ -11,7 +11,10 @@ from clan_game.models import *
 
 @csrf_exempt
 def sign_in(request):
-    return render(request, 'sign_in.html')
+    context = {
+        'google_oauth_client_id': os.environ['GOOGLE_OAUTH_CLIENT_ID']
+    }
+    return render(request, 'sign_in.html', context=context)
 
 @csrf_exempt
 def auth_receiver(request):
@@ -28,23 +31,52 @@ def auth_receiver(request):
     except ValueError:
         return HttpResponse(status=403)
 
-    player = Player(user_data["name"])
+    player = Player(user_data["email"], user_data["name"])
     player.save()
-    # save to database
+    player.get()
 
-    # In a real app, I'd also save any new user here to the database.
-    # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
+    # TODO: 
+    #save login activity to database
+    # login = Login()
+
+    # save to session data    
+    user_data['clanId'] = player.clanId
+    user_data['score'] = player.score
     request.session['user_data'] = user_data
+
     return redirect('sign_in')
 
 def sign_out(request):
     del request.session['user_data']
     return redirect('sign_in')
 
-@login_required(login_url='user')
 def profie(request):
-     return render(request, "profile.html")
-    
+    if "user_data" not in request.session:
+        return redirect('sign_in')
+
+    return render(request, "dashboard.html")
+
+def clan(request):
+    if "user_data" not in request.session:
+        return redirect('sign_in')
+    clans = Clan.getAllClans()
+    context = {
+        "clans": clans, 
+    }
+    get_client_ip(request)
+    return render(request, "clan.html", context=context)
+
+def transactions(request):
+    if "user_data" not in request.session:
+        return redirect('sign_in')
+
+    return render(request, "transactions.html")
+
+def payment(request):
+    if "user_data" not in request.session:
+        return redirect('sign_in')
+
+    return render(request, "payment.html")
 
 # TODO:
 def get_client_ip(request):
