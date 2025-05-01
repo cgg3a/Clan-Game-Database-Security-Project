@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from clan_game.models import *
-
+from cryptography.fernet import Fernet
+from .util import *
 
 @csrf_exempt
 def sign_in(request):
@@ -35,15 +36,16 @@ def auth_receiver(request):
     player.save()
     player.get()
 
-    # TODO: 
     #save login activity to database
-    # login = Login()
+    deviceName = get_client_agent(request)
+    location =  get_client_ip(request)
+    login = Login(player.id, deviceName, location)
+    login.save()
 
     # save to session data    
     user_data['clanId'] = player.clanId
     user_data['score'] = player.score
     request.session['user_data'] = user_data
-
     return redirect('sign_in')
 
 def sign_out(request):
@@ -63,7 +65,7 @@ def clan(request):
     context = {
         "clans": clans, 
     }
-    get_client_ip(request)
+    
     return render(request, "clan.html", context=context)
 
 def transactions(request):
@@ -77,12 +79,3 @@ def payment(request):
         return redirect('sign_in')
 
     return render(request, "payment.html")
-
-# TODO:
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip

@@ -49,7 +49,7 @@ CREATE TABLE LoginActivity (
     LoginId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     UserId INT,
     Time TIMESTAMP,
-    DeviceName VARCHAR(50),
+    DeviceName VARCHAR(100),
     Location VARCHAR(50),
     FOREIGN KEY (UserId)
         REFERENCES Player (UserId)

@@ -4,4 +4,4 @@ python-dotenv
 google-api-python-client
 PyMySQL
 mysqlclient
-django-allauth
+cryptography
