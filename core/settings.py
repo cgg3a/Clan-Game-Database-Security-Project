@@ -83,9 +83,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('DATABASE_NAME'),
         'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PWD'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('DATABASE_HOST'),
         'PORT': '3306',
+        # 'OPTIONS': {
+        #     'ssl': {
+        #         'ca': '/path/to/ca.pem',
+        #         'cert': '/path/to/client-cert.pem',
+        #         'key': '/path/to/client-key.pem'
+        #     }
+        # }
     }
 }
 
@@ -130,3 +137,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SALT_KEY = '0123456789abcdefghijklmnopqrstuvwxyz'
