@@ -55,6 +55,19 @@ CREATE TABLE LoginActivity (
         REFERENCES Player (UserId)
 );
 
+
+CREATE TABLE Payment (
+    PaymentId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    UserId INT,
+    CreditCard VARCHAR(20),
+    TOKEN VARCHAR(500)
+    CVC INT,
+    CardHolder VARCHAR(50),
+    BillingAddress VARCHAR(50),
+    FOREIGN KEY (UserId)
+        REFERENCES Player (UserId)
+);
+
 CREATE TABLE Billing (
     BillingId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     UserId INT,

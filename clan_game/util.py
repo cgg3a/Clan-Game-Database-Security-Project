@@ -1,17 +1,6 @@
 import os
 from cryptography.fernet import Fernet
-from clan_game.models import *
-
-def encrypt(filed):
-    #TODO: enenryptcode a field:
-    key = os.environ['SALT_KEY'].encode('utf-8')
-    f = Fernet(key)
-    token = f.encrypt(field)
-    print(token)
-
-def decrypt(filed):
-    #TODO: decrypt
-    print("TODO: decrypt")
+from clan_game.models import Player
 
 def  get_client_agent(request):   
      return request.META.get("HTTP_SEC_CH_UA")
