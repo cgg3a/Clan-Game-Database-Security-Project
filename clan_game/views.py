@@ -39,7 +39,7 @@ def auth_receiver(request):
     #save login activity to database
     deviceName = get_client_agent(request)
     location =  get_client_ip(request)
-    login = Login(player.id, deviceName, location)
+    login = Login(player.userId, deviceName, location)
     login.save()
 
     # save to session data    
@@ -65,6 +65,8 @@ def clan(request):
     context = {
         "clans": clans, 
     }
+
+    encrypt(b"1233446677889")
     
     return render(request, "clan.html", context=context)
 
@@ -77,5 +79,18 @@ def transactions(request):
 def payment(request):
     if "user_data" not in request.session:
         return redirect('sign_in')
+
+    player = get_player(request)
+    if request.method != "POST":
+        # payment = Payment(
+        #     request.body["credit_card_number"],
+        #     request.body["cvc"],
+        #     request.body["card_holder"],
+        #     request.body["address_info"]
+        # )
+        payment = Payment(player.userId, "45465778888566577", 123, "Hello World", "new york")
+        payment.save()
+
+    # Get user payment info
 
     return render(request, "payment.html")
